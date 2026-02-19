@@ -41,6 +41,22 @@ app.get("/users", (req, res) => {
     }
 });
 
+app.delete("/delete/:id", (req, res) => {
+    const userId = req.params.id;
+
+    if (!fs.existsSync("users.json")) {
+        return res.json({ message: "No users found" });
+    }
+
+    let users = JSON.parse(fs.readFileSync("users.json"));
+
+    const filteredUsers = users.filter(user => user.id !== userId);
+
+    fs.writeFileSync("users.json", JSON.stringify(filteredUsers, null, 2));
+
+    res.json({ message: `User ${userId} deleted successfully` });
+});
+
 
 app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`);
