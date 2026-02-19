@@ -32,6 +32,16 @@ app.post("/login", (req, res) => {
     res.json({ message: "Login data saved successfully!" });
 });
 
+app.get("/users", (req, res) => {
+    if (fs.existsSync("users.json")) {
+        const data = fs.readFileSync("users.json");
+        res.json(JSON.parse(data));
+    } else {
+        res.json([]);
+    }
+});
+
+
 app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`);
 });
