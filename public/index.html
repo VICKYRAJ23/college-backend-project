@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>College Login</title>
+</head>
+<body>
+    <h2>College Portal Login</h2>
+
+    <input type="text" id="studentId" placeholder="Enter ID"><br><br>
+    <input type="password" id="password" placeholder="Enter Password"><br><br>
+
+    <button id="loginBtn">Login</button>
+
+    <p id="message"></p>
+
+    <script>
+        document.getElementById("loginBtn").addEventListener("click", async function() {
+            const id = document.getElementById("studentId").value;
+            const password = document.getElementById("password").value;
+
+            try {
+                const response = await fetch("/login", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ id, password })
+                });
+
+                const data = await response.json();
+                document.getElementById("message").innerText = data.message;
+
+            } catch (error) {
+                console.error("Error:", error);
+                document.getElementById("message").innerText = "Something went wrong";
+            }
+        });
+    </script>
+</body>
+</html>
