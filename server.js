@@ -41,7 +41,7 @@ app.get("/users", (req, res) => {
     }
 });
 
-app.delete("/delete/:id", (req, res) => {
+app.get("/delete/:id", (req, res) => {
     const userId = req.params.id;
 
     if (!fs.existsSync("users.json")) {
